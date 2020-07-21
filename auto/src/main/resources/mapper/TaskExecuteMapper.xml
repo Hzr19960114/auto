@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.TaskExecuteMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.TaskExecute" >
+    <id column="task_id" property="taskId" jdbcType="INTEGER" />
+    <result column="scheduling_id" property="schedulingId" jdbcType="INTEGER" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="task_name" property="taskName" jdbcType="VARCHAR" />
+    <result column="task_status" property="taskStatus" jdbcType="INTEGER" />
+    <result column="case_total_count" property="caseTotalCount" jdbcType="INTEGER" />
+    <result column="case_succ_count" property="caseSuccCount" jdbcType="INTEGER" />
+    <result column="case_fail_count" property="caseFailCount" jdbcType="INTEGER" />
+    <result column="case_lock_count" property="caseLockCount" jdbcType="INTEGER" />
+    <result column="case_noexec_count" property="caseNoexecCount" jdbcType="INTEGER" />
+    <result column="finish_time" property="finishTime" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    task_id, scheduling_id, project_id, task_name, task_status, case_total_count, case_succ_count, 
+    case_fail_count, case_lock_count, case_noexec_count, finish_time, create_by, create_time, 
+    update_by, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.TaskExecuteExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from task_execute
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from task_execute
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from task_execute
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.TaskExecuteExample" >
+    delete from task_execute
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.TaskExecute" >
+    insert into task_execute (task_id, scheduling_id, project_id, 
+      task_name, task_status, case_total_count, 
+      case_succ_count, case_fail_count, case_lock_count, 
+      case_noexec_count, finish_time, create_by, 
+      create_time, update_by, update_time
+      )
+    values (#{taskId,jdbcType=INTEGER}, #{schedulingId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
+      #{taskName,jdbcType=VARCHAR}, #{taskStatus,jdbcType=INTEGER}, #{caseTotalCount,jdbcType=INTEGER}, 
+      #{caseSuccCount,jdbcType=INTEGER}, #{caseFailCount,jdbcType=INTEGER}, #{caseLockCount,jdbcType=INTEGER}, 
+      #{caseNoexecCount,jdbcType=INTEGER}, #{finishTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.TaskExecute" >
+    insert into task_execute
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="schedulingId != null" >
+        scheduling_id,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="taskName != null" >
+        task_name,
+      </if>
+      <if test="taskStatus != null" >
+        task_status,
+      </if>
+      <if test="caseTotalCount != null" >
+        case_total_count,
+      </if>
+      <if test="caseSuccCount != null" >
+        case_succ_count,
+      </if>
+      <if test="caseFailCount != null" >
+        case_fail_count,
+      </if>
+      <if test="caseLockCount != null" >
+        case_lock_count,
+      </if>
+      <if test="caseNoexecCount != null" >
+        case_noexec_count,
+      </if>
+      <if test="finishTime != null" >
+        finish_time,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="schedulingId != null" >
+        #{schedulingId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="taskName != null" >
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskStatus != null" >
+        #{taskStatus,jdbcType=INTEGER},
+      </if>
+      <if test="caseTotalCount != null" >
+        #{caseTotalCount,jdbcType=INTEGER},
+      </if>
+      <if test="caseSuccCount != null" >
+        #{caseSuccCount,jdbcType=INTEGER},
+      </if>
+      <if test="caseFailCount != null" >
+        #{caseFailCount,jdbcType=INTEGER},
+      </if>
+      <if test="caseLockCount != null" >
+        #{caseLockCount,jdbcType=INTEGER},
+      </if>
+      <if test="caseNoexecCount != null" >
+        #{caseNoexecCount,jdbcType=INTEGER},
+      </if>
+      <if test="finishTime != null" >
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.TaskExecuteExample" resultType="java.lang.Integer" >
+    select count(*) from task_execute
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update task_execute
+    <set >
+      <if test="record.taskId != null" >
+        task_id = #{record.taskId,jdbcType=INTEGER},
+      </if>
+      <if test="record.schedulingId != null" >
+        scheduling_id = #{record.schedulingId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectId != null" >
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.taskName != null" >
+        task_name = #{record.taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskStatus != null" >
+        task_status = #{record.taskStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.caseTotalCount != null" >
+        case_total_count = #{record.caseTotalCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.caseSuccCount != null" >
+        case_succ_count = #{record.caseSuccCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.caseFailCount != null" >
+        case_fail_count = #{record.caseFailCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.caseLockCount != null" >
+        case_lock_count = #{record.caseLockCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.caseNoexecCount != null" >
+        case_noexec_count = #{record.caseNoexecCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.finishTime != null" >
+        finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createBy != null" >
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null" >
+        update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update task_execute
+    set task_id = #{record.taskId,jdbcType=INTEGER},
+      scheduling_id = #{record.schedulingId,jdbcType=INTEGER},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      task_name = #{record.taskName,jdbcType=VARCHAR},
+      task_status = #{record.taskStatus,jdbcType=INTEGER},
+      case_total_count = #{record.caseTotalCount,jdbcType=INTEGER},
+      case_succ_count = #{record.caseSuccCount,jdbcType=INTEGER},
+      case_fail_count = #{record.caseFailCount,jdbcType=INTEGER},
+      case_lock_count = #{record.caseLockCount,jdbcType=INTEGER},
+      case_noexec_count = #{record.caseNoexecCount,jdbcType=INTEGER},
+      finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.TaskExecute" >
+    update task_execute
+    <set >
+      <if test="schedulingId != null" >
+        scheduling_id = #{schedulingId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="taskName != null" >
+        task_name = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskStatus != null" >
+        task_status = #{taskStatus,jdbcType=INTEGER},
+      </if>
+      <if test="caseTotalCount != null" >
+        case_total_count = #{caseTotalCount,jdbcType=INTEGER},
+      </if>
+      <if test="caseSuccCount != null" >
+        case_succ_count = #{caseSuccCount,jdbcType=INTEGER},
+      </if>
+      <if test="caseFailCount != null" >
+        case_fail_count = #{caseFailCount,jdbcType=INTEGER},
+      </if>
+      <if test="caseLockCount != null" >
+        case_lock_count = #{caseLockCount,jdbcType=INTEGER},
+      </if>
+      <if test="caseNoexecCount != null" >
+        case_noexec_count = #{caseNoexecCount,jdbcType=INTEGER},
+      </if>
+      <if test="finishTime != null" >
+        finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.TaskExecute" >
+    update task_execute
+    set scheduling_id = #{schedulingId,jdbcType=INTEGER},
+      project_id = #{projectId,jdbcType=INTEGER},
+      task_name = #{taskName,jdbcType=VARCHAR},
+      task_status = #{taskStatus,jdbcType=INTEGER},
+      case_total_count = #{caseTotalCount,jdbcType=INTEGER},
+      case_succ_count = #{caseSuccCount,jdbcType=INTEGER},
+      case_fail_count = #{caseFailCount,jdbcType=INTEGER},
+      case_lock_count = #{caseLockCount,jdbcType=INTEGER},
+      case_noexec_count = #{caseNoexecCount,jdbcType=INTEGER},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+</mapper>

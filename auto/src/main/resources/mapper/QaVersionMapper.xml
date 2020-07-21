@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.QaVersionMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.QaVersion" >
+    <id column="version_id" property="versionId" jdbcType="INTEGER" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="version_number" property="versionNumber" jdbcType="VARCHAR" />
+    <result column="version_status" property="versionStatus" jdbcType="VARCHAR" />
+    <result column="leader" property="leader" jdbcType="VARCHAR" />
+    <result column="developer" property="developer" jdbcType="VARCHAR" />
+    <result column="tester" property="tester" jdbcType="VARCHAR" />
+    <result column="plan_finish_date" property="planFinishDate" jdbcType="VARCHAR" />
+    <result column="actually_finish_date" property="actuallyFinishDate" jdbcType="VARCHAR" />
+    <result column="launch_date" property="launchDate" jdbcType="VARCHAR" />
+    <result column="time_limit_version" property="timeLimitVersion" jdbcType="INTEGER" />
+    <result column="project_deviation_days" property="projectDeviationDays" jdbcType="INTEGER" />
+    <result column="project_deviation_percent" property="projectDeviationPercent" jdbcType="REAL" />
+    <result column="demand_plan_finish" property="demandPlanFinish" jdbcType="INTEGER" />
+    <result column="demand_actually_finish" property="demandActuallyFinish" jdbcType="INTEGER" />
+    <result column="demand_percent" property="demandPercent" jdbcType="REAL" />
+    <result column="testcase_count" property="testcaseCount" jdbcType="INTEGER" />
+    <result column="testing_return" property="testingReturn" jdbcType="INTEGER" />
+    <result column="dev_human_resources" property="devHumanResources" jdbcType="INTEGER" />
+    <result column="test_human_resources" property="testHumanResources" jdbcType="INTEGER" />
+    <result column="change_line_code" property="changeLineCode" jdbcType="INTEGER" />
+    <result column="bug_zm" property="bugZm" jdbcType="INTEGER" />
+    <result column="bug_yz" property="bugYz" jdbcType="INTEGER" />
+    <result column="bug_yb" property="bugYb" jdbcType="INTEGER" />
+    <result column="bug_ts" property="bugTs" jdbcType="INTEGER" />
+    <result column="code_di" property="codeDi" jdbcType="REAL" />
+    <result column="quality_review" property="qualityReview" jdbcType="VARCHAR" />
+    <result column="imprint" property="imprint" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    version_id, project_id, version_number, version_status, leader, developer, tester, 
+    plan_finish_date, actually_finish_date, launch_date, time_limit_version, project_deviation_days, 
+    project_deviation_percent, demand_plan_finish, demand_actually_finish, demand_percent, 
+    testcase_count, testing_return, dev_human_resources, test_human_resources, change_line_code, 
+    bug_zm, bug_yz, bug_yb, bug_ts, code_di, quality_review, imprint, remark, create_by, 
+    create_time, update_by, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.QaVersionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from qa_version
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from qa_version
+    where version_id = #{versionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from qa_version
+    where version_id = #{versionId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.QaVersionExample" >
+    delete from qa_version
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.QaVersion" >
+    insert into qa_version (version_id, project_id, version_number, 
+      version_status, leader, developer, 
+      tester, plan_finish_date, actually_finish_date, 
+      launch_date, time_limit_version, project_deviation_days, 
+      project_deviation_percent, demand_plan_finish, 
+      demand_actually_finish, demand_percent, testcase_count, 
+      testing_return, dev_human_resources, test_human_resources, 
+      change_line_code, bug_zm, bug_yz, 
+      bug_yb, bug_ts, code_di, 
+      quality_review, imprint, remark, 
+      create_by, create_time, update_by, 
+      update_time)
+    values (#{versionId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{versionNumber,jdbcType=VARCHAR}, 
+      #{versionStatus,jdbcType=VARCHAR}, #{leader,jdbcType=VARCHAR}, #{developer,jdbcType=VARCHAR}, 
+      #{tester,jdbcType=VARCHAR}, #{planFinishDate,jdbcType=VARCHAR}, #{actuallyFinishDate,jdbcType=VARCHAR}, 
+      #{launchDate,jdbcType=VARCHAR}, #{timeLimitVersion,jdbcType=INTEGER}, #{projectDeviationDays,jdbcType=INTEGER}, 
+      #{projectDeviationPercent,jdbcType=REAL}, #{demandPlanFinish,jdbcType=INTEGER}, 
+      #{demandActuallyFinish,jdbcType=INTEGER}, #{demandPercent,jdbcType=REAL}, #{testcaseCount,jdbcType=INTEGER}, 
+      #{testingReturn,jdbcType=INTEGER}, #{devHumanResources,jdbcType=INTEGER}, #{testHumanResources,jdbcType=INTEGER}, 
+      #{changeLineCode,jdbcType=INTEGER}, #{bugZm,jdbcType=INTEGER}, #{bugYz,jdbcType=INTEGER}, 
+      #{bugYb,jdbcType=INTEGER}, #{bugTs,jdbcType=INTEGER}, #{codeDi,jdbcType=REAL}, 
+      #{qualityReview,jdbcType=VARCHAR}, #{imprint,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.QaVersion" >
+    insert into qa_version
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="versionId != null" >
+        version_id,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="versionNumber != null" >
+        version_number,
+      </if>
+      <if test="versionStatus != null" >
+        version_status,
+      </if>
+      <if test="leader != null" >
+        leader,
+      </if>
+      <if test="developer != null" >
+        developer,
+      </if>
+      <if test="tester != null" >
+        tester,
+      </if>
+      <if test="planFinishDate != null" >
+        plan_finish_date,
+      </if>
+      <if test="actuallyFinishDate != null" >
+        actually_finish_date,
+      </if>
+      <if test="launchDate != null" >
+        launch_date,
+      </if>
+      <if test="timeLimitVersion != null" >
+        time_limit_version,
+      </if>
+      <if test="projectDeviationDays != null" >
+        project_deviation_days,
+      </if>
+      <if test="projectDeviationPercent != null" >
+        project_deviation_percent,
+      </if>
+      <if test="demandPlanFinish != null" >
+        demand_plan_finish,
+      </if>
+      <if test="demandActuallyFinish != null" >
+        demand_actually_finish,
+      </if>
+      <if test="demandPercent != null" >
+        demand_percent,
+      </if>
+      <if test="testcaseCount != null" >
+        testcase_count,
+      </if>
+      <if test="testingReturn != null" >
+        testing_return,
+      </if>
+      <if test="devHumanResources != null" >
+        dev_human_resources,
+      </if>
+      <if test="testHumanResources != null" >
+        test_human_resources,
+      </if>
+      <if test="changeLineCode != null" >
+        change_line_code,
+      </if>
+      <if test="bugZm != null" >
+        bug_zm,
+      </if>
+      <if test="bugYz != null" >
+        bug_yz,
+      </if>
+      <if test="bugYb != null" >
+        bug_yb,
+      </if>
+      <if test="bugTs != null" >
+        bug_ts,
+      </if>
+      <if test="codeDi != null" >
+        code_di,
+      </if>
+      <if test="qualityReview != null" >
+        quality_review,
+      </if>
+      <if test="imprint != null" >
+        imprint,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="versionId != null" >
+        #{versionId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="versionNumber != null" >
+        #{versionNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="versionStatus != null" >
+        #{versionStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="leader != null" >
+        #{leader,jdbcType=VARCHAR},
+      </if>
+      <if test="developer != null" >
+        #{developer,jdbcType=VARCHAR},
+      </if>
+      <if test="tester != null" >
+        #{tester,jdbcType=VARCHAR},
+      </if>
+      <if test="planFinishDate != null" >
+        #{planFinishDate,jdbcType=VARCHAR},
+      </if>
+      <if test="actuallyFinishDate != null" >
+        #{actuallyFinishDate,jdbcType=VARCHAR},
+      </if>
+      <if test="launchDate != null" >
+        #{launchDate,jdbcType=VARCHAR},
+      </if>
+      <if test="timeLimitVersion != null" >
+        #{timeLimitVersion,jdbcType=INTEGER},
+      </if>
+      <if test="projectDeviationDays != null" >
+        #{projectDeviationDays,jdbcType=INTEGER},
+      </if>
+      <if test="projectDeviationPercent != null" >
+        #{projectDeviationPercent,jdbcType=REAL},
+      </if>
+      <if test="demandPlanFinish != null" >
+        #{demandPlanFinish,jdbcType=INTEGER},
+      </if>
+      <if test="demandActuallyFinish != null" >
+        #{demandActuallyFinish,jdbcType=INTEGER},
+      </if>
+      <if test="demandPercent != null" >
+        #{demandPercent,jdbcType=REAL},
+      </if>
+      <if test="testcaseCount != null" >
+        #{testcaseCount,jdbcType=INTEGER},
+      </if>
+      <if test="testingReturn != null" >
+        #{testingReturn,jdbcType=INTEGER},
+      </if>
+      <if test="devHumanResources != null" >
+        #{devHumanResources,jdbcType=INTEGER},
+      </if>
+      <if test="testHumanResources != null" >
+        #{testHumanResources,jdbcType=INTEGER},
+      </if>
+      <if test="changeLineCode != null" >
+        #{changeLineCode,jdbcType=INTEGER},
+      </if>
+      <if test="bugZm != null" >
+        #{bugZm,jdbcType=INTEGER},
+      </if>
+      <if test="bugYz != null" >
+        #{bugYz,jdbcType=INTEGER},
+      </if>
+      <if test="bugYb != null" >
+        #{bugYb,jdbcType=INTEGER},
+      </if>
+      <if test="bugTs != null" >
+        #{bugTs,jdbcType=INTEGER},
+      </if>
+      <if test="codeDi != null" >
+        #{codeDi,jdbcType=REAL},
+      </if>
+      <if test="qualityReview != null" >
+        #{qualityReview,jdbcType=VARCHAR},
+      </if>
+      <if test="imprint != null" >
+        #{imprint,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.QaVersionExample" resultType="java.lang.Integer" >
+    select count(*) from qa_version
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update qa_version
+    <set >
+      <if test="record.versionId != null" >
+        version_id = #{record.versionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectId != null" >
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.versionNumber != null" >
+        version_number = #{record.versionNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.versionStatus != null" >
+        version_status = #{record.versionStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leader != null" >
+        leader = #{record.leader,jdbcType=VARCHAR},
+      </if>
+      <if test="record.developer != null" >
+        developer = #{record.developer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tester != null" >
+        tester = #{record.tester,jdbcType=VARCHAR},
+      </if>
+      <if test="record.planFinishDate != null" >
+        plan_finish_date = #{record.planFinishDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actuallyFinishDate != null" >
+        actually_finish_date = #{record.actuallyFinishDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.launchDate != null" >
+        launch_date = #{record.launchDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeLimitVersion != null" >
+        time_limit_version = #{record.timeLimitVersion,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectDeviationDays != null" >
+        project_deviation_days = #{record.projectDeviationDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectDeviationPercent != null" >
+        project_deviation_percent = #{record.projectDeviationPercent,jdbcType=REAL},
+      </if>
+      <if test="record.demandPlanFinish != null" >
+        demand_plan_finish = #{record.demandPlanFinish,jdbcType=INTEGER},
+      </if>
+      <if test="record.demandActuallyFinish != null" >
+        demand_actually_finish = #{record.demandActuallyFinish,jdbcType=INTEGER},
+      </if>
+      <if test="record.demandPercent != null" >
+        demand_percent = #{record.demandPercent,jdbcType=REAL},
+      </if>
+      <if test="record.testcaseCount != null" >
+        testcase_count = #{record.testcaseCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.testingReturn != null" >
+        testing_return = #{record.testingReturn,jdbcType=INTEGER},
+      </if>
+      <if test="record.devHumanResources != null" >
+        dev_human_resources = #{record.devHumanResources,jdbcType=INTEGER},
+      </if>
+      <if test="record.testHumanResources != null" >
+        test_human_resources = #{record.testHumanResources,jdbcType=INTEGER},
+      </if>
+      <if test="record.changeLineCode != null" >
+        change_line_code = #{record.changeLineCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.bugZm != null" >
+        bug_zm = #{record.bugZm,jdbcType=INTEGER},
+      </if>
+      <if test="record.bugYz != null" >
+        bug_yz = #{record.bugYz,jdbcType=INTEGER},
+      </if>
+      <if test="record.bugYb != null" >
+        bug_yb = #{record.bugYb,jdbcType=INTEGER},
+      </if>
+      <if test="record.bugTs != null" >
+        bug_ts = #{record.bugTs,jdbcType=INTEGER},
+      </if>
+      <if test="record.codeDi != null" >
+        code_di = #{record.codeDi,jdbcType=REAL},
+      </if>
+      <if test="record.qualityReview != null" >
+        quality_review = #{record.qualityReview,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imprint != null" >
+        imprint = #{record.imprint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null" >
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null" >
+        update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update qa_version
+    set version_id = #{record.versionId,jdbcType=INTEGER},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      version_number = #{record.versionNumber,jdbcType=VARCHAR},
+      version_status = #{record.versionStatus,jdbcType=VARCHAR},
+      leader = #{record.leader,jdbcType=VARCHAR},
+      developer = #{record.developer,jdbcType=VARCHAR},
+      tester = #{record.tester,jdbcType=VARCHAR},
+      plan_finish_date = #{record.planFinishDate,jdbcType=VARCHAR},
+      actually_finish_date = #{record.actuallyFinishDate,jdbcType=VARCHAR},
+      launch_date = #{record.launchDate,jdbcType=VARCHAR},
+      time_limit_version = #{record.timeLimitVersion,jdbcType=INTEGER},
+      project_deviation_days = #{record.projectDeviationDays,jdbcType=INTEGER},
+      project_deviation_percent = #{record.projectDeviationPercent,jdbcType=REAL},
+      demand_plan_finish = #{record.demandPlanFinish,jdbcType=INTEGER},
+      demand_actually_finish = #{record.demandActuallyFinish,jdbcType=INTEGER},
+      demand_percent = #{record.demandPercent,jdbcType=REAL},
+      testcase_count = #{record.testcaseCount,jdbcType=INTEGER},
+      testing_return = #{record.testingReturn,jdbcType=INTEGER},
+      dev_human_resources = #{record.devHumanResources,jdbcType=INTEGER},
+      test_human_resources = #{record.testHumanResources,jdbcType=INTEGER},
+      change_line_code = #{record.changeLineCode,jdbcType=INTEGER},
+      bug_zm = #{record.bugZm,jdbcType=INTEGER},
+      bug_yz = #{record.bugYz,jdbcType=INTEGER},
+      bug_yb = #{record.bugYb,jdbcType=INTEGER},
+      bug_ts = #{record.bugTs,jdbcType=INTEGER},
+      code_di = #{record.codeDi,jdbcType=REAL},
+      quality_review = #{record.qualityReview,jdbcType=VARCHAR},
+      imprint = #{record.imprint,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.QaVersion" >
+    update qa_version
+    <set >
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="versionNumber != null" >
+        version_number = #{versionNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="versionStatus != null" >
+        version_status = #{versionStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="leader != null" >
+        leader = #{leader,jdbcType=VARCHAR},
+      </if>
+      <if test="developer != null" >
+        developer = #{developer,jdbcType=VARCHAR},
+      </if>
+      <if test="tester != null" >
+        tester = #{tester,jdbcType=VARCHAR},
+      </if>
+      <if test="planFinishDate != null" >
+        plan_finish_date = #{planFinishDate,jdbcType=VARCHAR},
+      </if>
+      <if test="actuallyFinishDate != null" >
+        actually_finish_date = #{actuallyFinishDate,jdbcType=VARCHAR},
+      </if>
+      <if test="launchDate != null" >
+        launch_date = #{launchDate,jdbcType=VARCHAR},
+      </if>
+      <if test="timeLimitVersion != null" >
+        time_limit_version = #{timeLimitVersion,jdbcType=INTEGER},
+      </if>
+      <if test="projectDeviationDays != null" >
+        project_deviation_days = #{projectDeviationDays,jdbcType=INTEGER},
+      </if>
+      <if test="projectDeviationPercent != null" >
+        project_deviation_percent = #{projectDeviationPercent,jdbcType=REAL},
+      </if>
+      <if test="demandPlanFinish != null" >
+        demand_plan_finish = #{demandPlanFinish,jdbcType=INTEGER},
+      </if>
+      <if test="demandActuallyFinish != null" >
+        demand_actually_finish = #{demandActuallyFinish,jdbcType=INTEGER},
+      </if>
+      <if test="demandPercent != null" >
+        demand_percent = #{demandPercent,jdbcType=REAL},
+      </if>
+      <if test="testcaseCount != null" >
+        testcase_count = #{testcaseCount,jdbcType=INTEGER},
+      </if>
+      <if test="testingReturn != null" >
+        testing_return = #{testingReturn,jdbcType=INTEGER},
+      </if>
+      <if test="devHumanResources != null" >
+        dev_human_resources = #{devHumanResources,jdbcType=INTEGER},
+      </if>
+      <if test="testHumanResources != null" >
+        test_human_resources = #{testHumanResources,jdbcType=INTEGER},
+      </if>
+      <if test="changeLineCode != null" >
+        change_line_code = #{changeLineCode,jdbcType=INTEGER},
+      </if>
+      <if test="bugZm != null" >
+        bug_zm = #{bugZm,jdbcType=INTEGER},
+      </if>
+      <if test="bugYz != null" >
+        bug_yz = #{bugYz,jdbcType=INTEGER},
+      </if>
+      <if test="bugYb != null" >
+        bug_yb = #{bugYb,jdbcType=INTEGER},
+      </if>
+      <if test="bugTs != null" >
+        bug_ts = #{bugTs,jdbcType=INTEGER},
+      </if>
+      <if test="codeDi != null" >
+        code_di = #{codeDi,jdbcType=REAL},
+      </if>
+      <if test="qualityReview != null" >
+        quality_review = #{qualityReview,jdbcType=VARCHAR},
+      </if>
+      <if test="imprint != null" >
+        imprint = #{imprint,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where version_id = #{versionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.QaVersion" >
+    update qa_version
+    set project_id = #{projectId,jdbcType=INTEGER},
+      version_number = #{versionNumber,jdbcType=VARCHAR},
+      version_status = #{versionStatus,jdbcType=VARCHAR},
+      leader = #{leader,jdbcType=VARCHAR},
+      developer = #{developer,jdbcType=VARCHAR},
+      tester = #{tester,jdbcType=VARCHAR},
+      plan_finish_date = #{planFinishDate,jdbcType=VARCHAR},
+      actually_finish_date = #{actuallyFinishDate,jdbcType=VARCHAR},
+      launch_date = #{launchDate,jdbcType=VARCHAR},
+      time_limit_version = #{timeLimitVersion,jdbcType=INTEGER},
+      project_deviation_days = #{projectDeviationDays,jdbcType=INTEGER},
+      project_deviation_percent = #{projectDeviationPercent,jdbcType=REAL},
+      demand_plan_finish = #{demandPlanFinish,jdbcType=INTEGER},
+      demand_actually_finish = #{demandActuallyFinish,jdbcType=INTEGER},
+      demand_percent = #{demandPercent,jdbcType=REAL},
+      testcase_count = #{testcaseCount,jdbcType=INTEGER},
+      testing_return = #{testingReturn,jdbcType=INTEGER},
+      dev_human_resources = #{devHumanResources,jdbcType=INTEGER},
+      test_human_resources = #{testHumanResources,jdbcType=INTEGER},
+      change_line_code = #{changeLineCode,jdbcType=INTEGER},
+      bug_zm = #{bugZm,jdbcType=INTEGER},
+      bug_yz = #{bugYz,jdbcType=INTEGER},
+      bug_yb = #{bugYb,jdbcType=INTEGER},
+      bug_ts = #{bugTs,jdbcType=INTEGER},
+      code_di = #{codeDi,jdbcType=REAL},
+      quality_review = #{qualityReview,jdbcType=VARCHAR},
+      imprint = #{imprint,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where version_id = #{versionId,jdbcType=INTEGER}
+  </update>
+</mapper>

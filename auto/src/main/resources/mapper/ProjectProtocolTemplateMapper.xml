@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.ProjectProtocolTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.ProjectProtocolTemplate" >
+    <id column="template_id" property="templateId" jdbcType="INTEGER" />
+    <result column="template_name" property="templateName" jdbcType="VARCHAR" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="head_msg" property="headMsg" jdbcType="VARCHAR" />
+    <result column="cerificate_path" property="cerificatePath" jdbcType="VARCHAR" />
+    <result column="encoding" property="encoding" jdbcType="VARCHAR" />
+    <result column="timeout" property="timeout" jdbcType="INTEGER" />
+    <result column="is_response_head" property="isResponseHead" jdbcType="INTEGER" />
+    <result column="is_response_code" property="isResponseCode" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    template_id, template_name, project_id, head_msg, cerificate_path, encoding, timeout, 
+    is_response_head, is_response_code, create_by, create_time, update_by, update_time, 
+    remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.ProjectProtocolTemplateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from project_protocol_template
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from project_protocol_template
+    where template_id = #{templateId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from project_protocol_template
+    where template_id = #{templateId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.ProjectProtocolTemplateExample" >
+    delete from project_protocol_template
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.ProjectProtocolTemplate" >
+    insert into project_protocol_template (template_id, template_name, project_id, 
+      head_msg, cerificate_path, encoding, 
+      timeout, is_response_head, is_response_code, 
+      create_by, create_time, update_by, 
+      update_time, remark)
+    values (#{templateId,jdbcType=INTEGER}, #{templateName,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER}, 
+      #{headMsg,jdbcType=VARCHAR}, #{cerificatePath,jdbcType=VARCHAR}, #{encoding,jdbcType=VARCHAR}, 
+      #{timeout,jdbcType=INTEGER}, #{isResponseHead,jdbcType=INTEGER}, #{isResponseCode,jdbcType=INTEGER}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.ProjectProtocolTemplate" >
+    insert into project_protocol_template
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="templateId != null" >
+        template_id,
+      </if>
+      <if test="templateName != null" >
+        template_name,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="headMsg != null" >
+        head_msg,
+      </if>
+      <if test="cerificatePath != null" >
+        cerificate_path,
+      </if>
+      <if test="encoding != null" >
+        encoding,
+      </if>
+      <if test="timeout != null" >
+        timeout,
+      </if>
+      <if test="isResponseHead != null" >
+        is_response_head,
+      </if>
+      <if test="isResponseCode != null" >
+        is_response_code,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="templateId != null" >
+        #{templateId,jdbcType=INTEGER},
+      </if>
+      <if test="templateName != null" >
+        #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="headMsg != null" >
+        #{headMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="cerificatePath != null" >
+        #{cerificatePath,jdbcType=VARCHAR},
+      </if>
+      <if test="encoding != null" >
+        #{encoding,jdbcType=VARCHAR},
+      </if>
+      <if test="timeout != null" >
+        #{timeout,jdbcType=INTEGER},
+      </if>
+      <if test="isResponseHead != null" >
+        #{isResponseHead,jdbcType=INTEGER},
+      </if>
+      <if test="isResponseCode != null" >
+        #{isResponseCode,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.ProjectProtocolTemplateExample" resultType="java.lang.Integer" >
+    select count(*) from project_protocol_template
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update project_protocol_template
+    <set >
+      <if test="record.templateId != null" >
+        template_id = #{record.templateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.templateName != null" >
+        template_name = #{record.templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectId != null" >
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.headMsg != null" >
+        head_msg = #{record.headMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cerificatePath != null" >
+        cerificate_path = #{record.cerificatePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.encoding != null" >
+        encoding = #{record.encoding,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeout != null" >
+        timeout = #{record.timeout,jdbcType=INTEGER},
+      </if>
+      <if test="record.isResponseHead != null" >
+        is_response_head = #{record.isResponseHead,jdbcType=INTEGER},
+      </if>
+      <if test="record.isResponseCode != null" >
+        is_response_code = #{record.isResponseCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.createBy != null" >
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null" >
+        update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update project_protocol_template
+    set template_id = #{record.templateId,jdbcType=INTEGER},
+      template_name = #{record.templateName,jdbcType=VARCHAR},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      head_msg = #{record.headMsg,jdbcType=VARCHAR},
+      cerificate_path = #{record.cerificatePath,jdbcType=VARCHAR},
+      encoding = #{record.encoding,jdbcType=VARCHAR},
+      timeout = #{record.timeout,jdbcType=INTEGER},
+      is_response_head = #{record.isResponseHead,jdbcType=INTEGER},
+      is_response_code = #{record.isResponseCode,jdbcType=INTEGER},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.ProjectProtocolTemplate" >
+    update project_protocol_template
+    <set >
+      <if test="templateName != null" >
+        template_name = #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="headMsg != null" >
+        head_msg = #{headMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="cerificatePath != null" >
+        cerificate_path = #{cerificatePath,jdbcType=VARCHAR},
+      </if>
+      <if test="encoding != null" >
+        encoding = #{encoding,jdbcType=VARCHAR},
+      </if>
+      <if test="timeout != null" >
+        timeout = #{timeout,jdbcType=INTEGER},
+      </if>
+      <if test="isResponseHead != null" >
+        is_response_head = #{isResponseHead,jdbcType=INTEGER},
+      </if>
+      <if test="isResponseCode != null" >
+        is_response_code = #{isResponseCode,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where template_id = #{templateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.ProjectProtocolTemplate" >
+    update project_protocol_template
+    set template_name = #{templateName,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=INTEGER},
+      head_msg = #{headMsg,jdbcType=VARCHAR},
+      cerificate_path = #{cerificatePath,jdbcType=VARCHAR},
+      encoding = #{encoding,jdbcType=VARCHAR},
+      timeout = #{timeout,jdbcType=INTEGER},
+      is_response_head = #{isResponseHead,jdbcType=INTEGER},
+      is_response_code = #{isResponseCode,jdbcType=INTEGER},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where template_id = #{templateId,jdbcType=INTEGER}
+  </update>
+</mapper>
