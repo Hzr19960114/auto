@@ -2,6 +2,10 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class SysOperLog {
     private Integer operId;
 
@@ -29,9 +33,25 @@ public class SysOperLog {
 
     private String errorMsg;
 
+    @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date operTime;
+    
+    @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date updateTime;
+    
+    
 
-    public Integer getOperId() {
+    public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public Integer getOperId() {
         return operId;
     }
 

@@ -17,6 +17,14 @@
     <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
+  
+  <resultMap id="BaseResultMapExtends" extends="BaseResultMap" type="com.accp.domain.SysDept">
+  	 	<collection property="children" column="dept_id" select="find"></collection>
+  </resultMap>
+  
+  <select id="find" resultMap="BaseResultMapExtends" parameterType="java.lang.Integer">
+  		SELECT * FROM sys_dept WHERE parent_id=#{parentId} 
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

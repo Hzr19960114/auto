@@ -2,6 +2,10 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ProjectProtocolTemplate {
     private Integer templateId;
 
@@ -23,10 +27,14 @@ public class ProjectProtocolTemplate {
 
     private String createBy;
 
+    @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createTime;
 
     private String updateBy;
 
+    @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updateTime;
 
     private String remark;

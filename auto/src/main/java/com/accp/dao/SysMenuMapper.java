@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface SysMenuMapper {
+	
+	List<SysMenu> find(Integer parentId);
+	
     int countByExample(SysMenuExample example);
 
     int deleteByExample(SysMenuExample example);

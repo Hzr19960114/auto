@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.SysStudentMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.SysStudent" >
+    <id column="student_no" property="studentNo" jdbcType="VARCHAR" />
+    <result column="student_name" property="studentName" jdbcType="VARCHAR" />
+    <result column="student_phone" property="studentPhone" jdbcType="CHAR" />
+    <result column="clazz_id" property="clazzId" jdbcType="INTEGER" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    student_no, student_name, student_phone, clazz_id, del_flag
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.SysStudentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_student
+    where student_no = #{studentNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_student
+    where student_no = #{studentNo,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.SysStudentExample" >
+    delete from sys_student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.SysStudent" >
+    insert into sys_student (student_no, student_name, student_phone, 
+      clazz_id, del_flag)
+    values (#{studentNo,jdbcType=VARCHAR}, #{studentName,jdbcType=VARCHAR}, #{studentPhone,jdbcType=CHAR}, 
+      #{clazzId,jdbcType=INTEGER}, #{delFlag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.SysStudent" >
+    insert into sys_student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="studentNo != null" >
+        student_no,
+      </if>
+      <if test="studentName != null" >
+        student_name,
+      </if>
+      <if test="studentPhone != null" >
+        student_phone,
+      </if>
+      <if test="clazzId != null" >
+        clazz_id,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="studentNo != null" >
+        #{studentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null" >
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentPhone != null" >
+        #{studentPhone,jdbcType=CHAR},
+      </if>
+      <if test="clazzId != null" >
+        #{clazzId,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.SysStudentExample" resultType="java.lang.Integer" >
+    select count(*) from sys_student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_student
+    <set >
+      <if test="record.studentNo != null" >
+        student_no = #{record.studentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentName != null" >
+        student_name = #{record.studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentPhone != null" >
+        student_phone = #{record.studentPhone,jdbcType=CHAR},
+      </if>
+      <if test="record.clazzId != null" >
+        clazz_id = #{record.clazzId,jdbcType=INTEGER},
+      </if>
+      <if test="record.delFlag != null" >
+        del_flag = #{record.delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_student
+    set student_no = #{record.studentNo,jdbcType=VARCHAR},
+      student_name = #{record.studentName,jdbcType=VARCHAR},
+      student_phone = #{record.studentPhone,jdbcType=CHAR},
+      clazz_id = #{record.clazzId,jdbcType=INTEGER},
+      del_flag = #{record.delFlag,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.SysStudent" >
+    update sys_student
+    <set >
+      <if test="studentName != null" >
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentPhone != null" >
+        student_phone = #{studentPhone,jdbcType=CHAR},
+      </if>
+      <if test="clazzId != null" >
+        clazz_id = #{clazzId,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where student_no = #{studentNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.SysStudent" >
+    update sys_student
+    set student_name = #{studentName,jdbcType=VARCHAR},
+      student_phone = #{studentPhone,jdbcType=CHAR},
+      clazz_id = #{clazzId,jdbcType=INTEGER},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where student_no = #{studentNo,jdbcType=VARCHAR}
+  </update>
+</mapper>

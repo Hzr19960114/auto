@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.ProjectCaseStepsMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.ProjectCaseSteps" >
+    <id column="step_id" property="stepId" jdbcType="INTEGER" />
+    <result column="case_id" property="caseId" jdbcType="INTEGER" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="step_serial_number" property="stepSerialNumber" jdbcType="INTEGER" />
+    <result column="step_path" property="stepPath" jdbcType="VARCHAR" />
+    <result column="step_operation" property="stepOperation" jdbcType="VARCHAR" />
+    <result column="step_parameters" property="stepParameters" jdbcType="VARCHAR" />
+    <result column="action" property="action" jdbcType="VARCHAR" />
+    <result column="expected_result" property="expectedResult" jdbcType="VARCHAR" />
+    <result column="step_type" property="stepType" jdbcType="INTEGER" />
+    <result column="extend" property="extend" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="step_remark" property="stepRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    step_id, case_id, project_id, step_serial_number, step_path, step_operation, step_parameters, 
+    action, expected_result, step_type, extend, create_by, create_time, update_by, update_time, 
+    step_remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.ProjectCaseStepsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from project_case_steps
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from project_case_steps
+    where step_id = #{stepId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from project_case_steps
+    where step_id = #{stepId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.ProjectCaseStepsExample" >
+    delete from project_case_steps
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.ProjectCaseSteps" >
+    insert into project_case_steps (step_id, case_id, project_id, 
+      step_serial_number, step_path, step_operation, 
+      step_parameters, action, expected_result, 
+      step_type, extend, create_by, 
+      create_time, update_by, update_time, 
+      step_remark)
+    values (#{stepId,jdbcType=INTEGER}, #{caseId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
+      #{stepSerialNumber,jdbcType=INTEGER}, #{stepPath,jdbcType=VARCHAR}, #{stepOperation,jdbcType=VARCHAR}, 
+      #{stepParameters,jdbcType=VARCHAR}, #{action,jdbcType=VARCHAR}, #{expectedResult,jdbcType=VARCHAR}, 
+      #{stepType,jdbcType=INTEGER}, #{extend,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{stepRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.ProjectCaseSteps" >
+    insert into project_case_steps
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stepId != null" >
+        step_id,
+      </if>
+      <if test="caseId != null" >
+        case_id,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="stepSerialNumber != null" >
+        step_serial_number,
+      </if>
+      <if test="stepPath != null" >
+        step_path,
+      </if>
+      <if test="stepOperation != null" >
+        step_operation,
+      </if>
+      <if test="stepParameters != null" >
+        step_parameters,
+      </if>
+      <if test="action != null" >
+        action,
+      </if>
+      <if test="expectedResult != null" >
+        expected_result,
+      </if>
+      <if test="stepType != null" >
+        step_type,
+      </if>
+      <if test="extend != null" >
+        extend,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="stepRemark != null" >
+        step_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stepId != null" >
+        #{stepId,jdbcType=INTEGER},
+      </if>
+      <if test="caseId != null" >
+        #{caseId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="stepSerialNumber != null" >
+        #{stepSerialNumber,jdbcType=INTEGER},
+      </if>
+      <if test="stepPath != null" >
+        #{stepPath,jdbcType=VARCHAR},
+      </if>
+      <if test="stepOperation != null" >
+        #{stepOperation,jdbcType=VARCHAR},
+      </if>
+      <if test="stepParameters != null" >
+        #{stepParameters,jdbcType=VARCHAR},
+      </if>
+      <if test="action != null" >
+        #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="expectedResult != null" >
+        #{expectedResult,jdbcType=VARCHAR},
+      </if>
+      <if test="stepType != null" >
+        #{stepType,jdbcType=INTEGER},
+      </if>
+      <if test="extend != null" >
+        #{extend,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stepRemark != null" >
+        #{stepRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.ProjectCaseStepsExample" resultType="java.lang.Integer" >
+    select count(*) from project_case_steps
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update project_case_steps
+    <set >
+      <if test="record.stepId != null" >
+        step_id = #{record.stepId,jdbcType=INTEGER},
+      </if>
+      <if test="record.caseId != null" >
+        case_id = #{record.caseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectId != null" >
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stepSerialNumber != null" >
+        step_serial_number = #{record.stepSerialNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.stepPath != null" >
+        step_path = #{record.stepPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stepOperation != null" >
+        step_operation = #{record.stepOperation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stepParameters != null" >
+        step_parameters = #{record.stepParameters,jdbcType=VARCHAR},
+      </if>
+      <if test="record.action != null" >
+        action = #{record.action,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expectedResult != null" >
+        expected_result = #{record.expectedResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stepType != null" >
+        step_type = #{record.stepType,jdbcType=INTEGER},
+      </if>
+      <if test="record.extend != null" >
+        extend = #{record.extend,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null" >
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null" >
+        update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.stepRemark != null" >
+        step_remark = #{record.stepRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update project_case_steps
+    set step_id = #{record.stepId,jdbcType=INTEGER},
+      case_id = #{record.caseId,jdbcType=INTEGER},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      step_serial_number = #{record.stepSerialNumber,jdbcType=INTEGER},
+      step_path = #{record.stepPath,jdbcType=VARCHAR},
+      step_operation = #{record.stepOperation,jdbcType=VARCHAR},
+      step_parameters = #{record.stepParameters,jdbcType=VARCHAR},
+      action = #{record.action,jdbcType=VARCHAR},
+      expected_result = #{record.expectedResult,jdbcType=VARCHAR},
+      step_type = #{record.stepType,jdbcType=INTEGER},
+      extend = #{record.extend,jdbcType=VARCHAR},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      step_remark = #{record.stepRemark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.ProjectCaseSteps" >
+    update project_case_steps
+    <set >
+      <if test="caseId != null" >
+        case_id = #{caseId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="stepSerialNumber != null" >
+        step_serial_number = #{stepSerialNumber,jdbcType=INTEGER},
+      </if>
+      <if test="stepPath != null" >
+        step_path = #{stepPath,jdbcType=VARCHAR},
+      </if>
+      <if test="stepOperation != null" >
+        step_operation = #{stepOperation,jdbcType=VARCHAR},
+      </if>
+      <if test="stepParameters != null" >
+        step_parameters = #{stepParameters,jdbcType=VARCHAR},
+      </if>
+      <if test="action != null" >
+        action = #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="expectedResult != null" >
+        expected_result = #{expectedResult,jdbcType=VARCHAR},
+      </if>
+      <if test="stepType != null" >
+        step_type = #{stepType,jdbcType=INTEGER},
+      </if>
+      <if test="extend != null" >
+        extend = #{extend,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stepRemark != null" >
+        step_remark = #{stepRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where step_id = #{stepId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.ProjectCaseSteps" >
+    update project_case_steps
+    set case_id = #{caseId,jdbcType=INTEGER},
+      project_id = #{projectId,jdbcType=INTEGER},
+      step_serial_number = #{stepSerialNumber,jdbcType=INTEGER},
+      step_path = #{stepPath,jdbcType=VARCHAR},
+      step_operation = #{stepOperation,jdbcType=VARCHAR},
+      step_parameters = #{stepParameters,jdbcType=VARCHAR},
+      action = #{action,jdbcType=VARCHAR},
+      expected_result = #{expectedResult,jdbcType=VARCHAR},
+      step_type = #{stepType,jdbcType=INTEGER},
+      extend = #{extend,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      step_remark = #{stepRemark,jdbcType=VARCHAR}
+    where step_id = #{stepId,jdbcType=INTEGER}
+  </update>
+</mapper>

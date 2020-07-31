@@ -2,6 +2,10 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class SysUserOnline {
     private String sessionid;
 
@@ -19,8 +23,12 @@ public class SysUserOnline {
 
     private String status;
 
+    @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date startTimestamp;
-
+    
+    @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date lastAccessTime;
 
     private Integer expireTime;

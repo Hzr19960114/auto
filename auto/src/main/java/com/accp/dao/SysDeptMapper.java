@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface SysDeptMapper {
+	
+	List<SysDept> find(Integer parentId);
+	
     int countByExample(SysDeptExample example);
 
     int deleteByExample(SysDeptExample example);

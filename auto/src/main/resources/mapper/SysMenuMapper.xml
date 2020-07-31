@@ -17,6 +17,15 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap id="BaseResultMapExtends" extends="BaseResultMap" type="com.accp.domain.SysMenu">
+  		<collection property="children" column="menu_id" select="find"></collection>
+  </resultMap>
+  
+  <select id="find" resultMap="BaseResultMapExtends" parameterType="java.lang.Integer">
+ 		SELECT * FROM sys_menu WHERE parent_id=#{parentId} 
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

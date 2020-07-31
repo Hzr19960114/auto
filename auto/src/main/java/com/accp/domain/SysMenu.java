@@ -1,6 +1,8 @@
 package com.accp.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class SysMenu {
     private Integer menuId;
@@ -30,8 +32,20 @@ public class SysMenu {
     private Date updateTime;
 
     private String remark;
+    
+    private List<SysMenu> Children = new ArrayList<SysMenu>();
+    
+    
 
-    public Integer getMenuId() {
+    public List<SysMenu> getChildren() {
+		return Children;
+	}
+
+	public void setChildren(List<SysMenu> children) {
+		Children = children;
+	}
+
+	public Integer getMenuId() {
         return menuId;
     }
 

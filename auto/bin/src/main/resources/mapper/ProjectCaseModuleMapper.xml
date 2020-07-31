@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.ProjectCaseModuleMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.ProjectCaseModule" >
+    <id column="module_id" property="moduleId" jdbcType="INTEGER" />
+    <result column="module_name" property="moduleName" jdbcType="VARCHAR" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="ancestors" property="ancestors" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    module_id, module_name, project_id, parent_id, ancestors, order_num, create_by, create_time, 
+    update_by, update_time, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.ProjectCaseModuleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from project_case_module
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from project_case_module
+    where module_id = #{moduleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from project_case_module
+    where module_id = #{moduleId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.ProjectCaseModuleExample" >
+    delete from project_case_module
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.ProjectCaseModule" >
+    insert into project_case_module (module_id, module_name, project_id, 
+      parent_id, ancestors, order_num, 
+      create_by, create_time, update_by, 
+      update_time, remark)
+    values (#{moduleId,jdbcType=INTEGER}, #{moduleName,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER}, 
+      #{parentId,jdbcType=INTEGER}, #{ancestors,jdbcType=VARCHAR}, #{orderNum,jdbcType=INTEGER}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.ProjectCaseModule" >
+    insert into project_case_module
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="moduleId != null" >
+        module_id,
+      </if>
+      <if test="moduleName != null" >
+        module_name,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="ancestors != null" >
+        ancestors,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="moduleId != null" >
+        #{moduleId,jdbcType=INTEGER},
+      </if>
+      <if test="moduleName != null" >
+        #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="ancestors != null" >
+        #{ancestors,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.ProjectCaseModuleExample" resultType="java.lang.Integer" >
+    select count(*) from project_case_module
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update project_case_module
+    <set >
+      <if test="record.moduleId != null" >
+        module_id = #{record.moduleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.moduleName != null" >
+        module_name = #{record.moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectId != null" >
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ancestors != null" >
+        ancestors = #{record.ancestors,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNum != null" >
+        order_num = #{record.orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.createBy != null" >
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null" >
+        update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update project_case_module
+    set module_id = #{record.moduleId,jdbcType=INTEGER},
+      module_name = #{record.moduleName,jdbcType=VARCHAR},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      ancestors = #{record.ancestors,jdbcType=VARCHAR},
+      order_num = #{record.orderNum,jdbcType=INTEGER},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.ProjectCaseModule" >
+    update project_case_module
+    <set >
+      <if test="moduleName != null" >
+        module_name = #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="ancestors != null" >
+        ancestors = #{ancestors,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where module_id = #{moduleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.ProjectCaseModule" >
+    update project_case_module
+    set module_name = #{moduleName,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      ancestors = #{ancestors,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where module_id = #{moduleId,jdbcType=INTEGER}
+  </update>
+</mapper>

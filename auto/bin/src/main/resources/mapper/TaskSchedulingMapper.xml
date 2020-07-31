@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.TaskSchedulingMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.TaskScheduling" >
+    <id column="scheduling_id" property="schedulingId" jdbcType="INTEGER" />
+    <result column="scheduling_name" property="schedulingName" jdbcType="VARCHAR" />
+    <result column="job_id" property="jobId" jdbcType="INTEGER" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="plan_id" property="planId" jdbcType="INTEGER" />
+    <result column="client_id" property="clientId" jdbcType="INTEGER" />
+    <result column="email_send_condition" property="emailSendCondition" jdbcType="INTEGER" />
+    <result column="email_address" property="emailAddress" jdbcType="VARCHAR" />
+    <result column="building_link" property="buildingLink" jdbcType="VARCHAR" />
+    <result column="remote_shell" property="remoteShell" jdbcType="VARCHAR" />
+    <result column="ex_thread_count" property="exThreadCount" jdbcType="INTEGER" />
+    <result column="task_type" property="taskType" jdbcType="INTEGER" />
+    <result column="browser_type" property="browserType" jdbcType="INTEGER" />
+    <result column="task_timeout" property="taskTimeout" jdbcType="INTEGER" />
+    <result column="client_driver_path" property="clientDriverPath" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    scheduling_id, scheduling_name, job_id, project_id, plan_id, client_id, email_send_condition, 
+    email_address, building_link, remote_shell, ex_thread_count, task_type, browser_type, 
+    task_timeout, client_driver_path
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.TaskSchedulingExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from task_scheduling
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from task_scheduling
+    where scheduling_id = #{schedulingId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from task_scheduling
+    where scheduling_id = #{schedulingId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.TaskSchedulingExample" >
+    delete from task_scheduling
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.TaskScheduling" >
+    insert into task_scheduling (scheduling_id, scheduling_name, job_id, 
+      project_id, plan_id, client_id, 
+      email_send_condition, email_address, building_link, 
+      remote_shell, ex_thread_count, task_type, 
+      browser_type, task_timeout, client_driver_path
+      )
+    values (#{schedulingId,jdbcType=INTEGER}, #{schedulingName,jdbcType=VARCHAR}, #{jobId,jdbcType=INTEGER}, 
+      #{projectId,jdbcType=INTEGER}, #{planId,jdbcType=INTEGER}, #{clientId,jdbcType=INTEGER}, 
+      #{emailSendCondition,jdbcType=INTEGER}, #{emailAddress,jdbcType=VARCHAR}, #{buildingLink,jdbcType=VARCHAR}, 
+      #{remoteShell,jdbcType=VARCHAR}, #{exThreadCount,jdbcType=INTEGER}, #{taskType,jdbcType=INTEGER}, 
+      #{browserType,jdbcType=INTEGER}, #{taskTimeout,jdbcType=INTEGER}, #{clientDriverPath,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.TaskScheduling" >
+    insert into task_scheduling
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="schedulingId != null" >
+        scheduling_id,
+      </if>
+      <if test="schedulingName != null" >
+        scheduling_name,
+      </if>
+      <if test="jobId != null" >
+        job_id,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="planId != null" >
+        plan_id,
+      </if>
+      <if test="clientId != null" >
+        client_id,
+      </if>
+      <if test="emailSendCondition != null" >
+        email_send_condition,
+      </if>
+      <if test="emailAddress != null" >
+        email_address,
+      </if>
+      <if test="buildingLink != null" >
+        building_link,
+      </if>
+      <if test="remoteShell != null" >
+        remote_shell,
+      </if>
+      <if test="exThreadCount != null" >
+        ex_thread_count,
+      </if>
+      <if test="taskType != null" >
+        task_type,
+      </if>
+      <if test="browserType != null" >
+        browser_type,
+      </if>
+      <if test="taskTimeout != null" >
+        task_timeout,
+      </if>
+      <if test="clientDriverPath != null" >
+        client_driver_path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="schedulingId != null" >
+        #{schedulingId,jdbcType=INTEGER},
+      </if>
+      <if test="schedulingName != null" >
+        #{schedulingName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobId != null" >
+        #{jobId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="planId != null" >
+        #{planId,jdbcType=INTEGER},
+      </if>
+      <if test="clientId != null" >
+        #{clientId,jdbcType=INTEGER},
+      </if>
+      <if test="emailSendCondition != null" >
+        #{emailSendCondition,jdbcType=INTEGER},
+      </if>
+      <if test="emailAddress != null" >
+        #{emailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingLink != null" >
+        #{buildingLink,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteShell != null" >
+        #{remoteShell,jdbcType=VARCHAR},
+      </if>
+      <if test="exThreadCount != null" >
+        #{exThreadCount,jdbcType=INTEGER},
+      </if>
+      <if test="taskType != null" >
+        #{taskType,jdbcType=INTEGER},
+      </if>
+      <if test="browserType != null" >
+        #{browserType,jdbcType=INTEGER},
+      </if>
+      <if test="taskTimeout != null" >
+        #{taskTimeout,jdbcType=INTEGER},
+      </if>
+      <if test="clientDriverPath != null" >
+        #{clientDriverPath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.TaskSchedulingExample" resultType="java.lang.Integer" >
+    select count(*) from task_scheduling
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update task_scheduling
+    <set >
+      <if test="record.schedulingId != null" >
+        scheduling_id = #{record.schedulingId,jdbcType=INTEGER},
+      </if>
+      <if test="record.schedulingName != null" >
+        scheduling_name = #{record.schedulingName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobId != null" >
+        job_id = #{record.jobId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectId != null" >
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.planId != null" >
+        plan_id = #{record.planId,jdbcType=INTEGER},
+      </if>
+      <if test="record.clientId != null" >
+        client_id = #{record.clientId,jdbcType=INTEGER},
+      </if>
+      <if test="record.emailSendCondition != null" >
+        email_send_condition = #{record.emailSendCondition,jdbcType=INTEGER},
+      </if>
+      <if test="record.emailAddress != null" >
+        email_address = #{record.emailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingLink != null" >
+        building_link = #{record.buildingLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remoteShell != null" >
+        remote_shell = #{record.remoteShell,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exThreadCount != null" >
+        ex_thread_count = #{record.exThreadCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.taskType != null" >
+        task_type = #{record.taskType,jdbcType=INTEGER},
+      </if>
+      <if test="record.browserType != null" >
+        browser_type = #{record.browserType,jdbcType=INTEGER},
+      </if>
+      <if test="record.taskTimeout != null" >
+        task_timeout = #{record.taskTimeout,jdbcType=INTEGER},
+      </if>
+      <if test="record.clientDriverPath != null" >
+        client_driver_path = #{record.clientDriverPath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update task_scheduling
+    set scheduling_id = #{record.schedulingId,jdbcType=INTEGER},
+      scheduling_name = #{record.schedulingName,jdbcType=VARCHAR},
+      job_id = #{record.jobId,jdbcType=INTEGER},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      plan_id = #{record.planId,jdbcType=INTEGER},
+      client_id = #{record.clientId,jdbcType=INTEGER},
+      email_send_condition = #{record.emailSendCondition,jdbcType=INTEGER},
+      email_address = #{record.emailAddress,jdbcType=VARCHAR},
+      building_link = #{record.buildingLink,jdbcType=VARCHAR},
+      remote_shell = #{record.remoteShell,jdbcType=VARCHAR},
+      ex_thread_count = #{record.exThreadCount,jdbcType=INTEGER},
+      task_type = #{record.taskType,jdbcType=INTEGER},
+      browser_type = #{record.browserType,jdbcType=INTEGER},
+      task_timeout = #{record.taskTimeout,jdbcType=INTEGER},
+      client_driver_path = #{record.clientDriverPath,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.TaskScheduling" >
+    update task_scheduling
+    <set >
+      <if test="schedulingName != null" >
+        scheduling_name = #{schedulingName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobId != null" >
+        job_id = #{jobId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="planId != null" >
+        plan_id = #{planId,jdbcType=INTEGER},
+      </if>
+      <if test="clientId != null" >
+        client_id = #{clientId,jdbcType=INTEGER},
+      </if>
+      <if test="emailSendCondition != null" >
+        email_send_condition = #{emailSendCondition,jdbcType=INTEGER},
+      </if>
+      <if test="emailAddress != null" >
+        email_address = #{emailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingLink != null" >
+        building_link = #{buildingLink,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteShell != null" >
+        remote_shell = #{remoteShell,jdbcType=VARCHAR},
+      </if>
+      <if test="exThreadCount != null" >
+        ex_thread_count = #{exThreadCount,jdbcType=INTEGER},
+      </if>
+      <if test="taskType != null" >
+        task_type = #{taskType,jdbcType=INTEGER},
+      </if>
+      <if test="browserType != null" >
+        browser_type = #{browserType,jdbcType=INTEGER},
+      </if>
+      <if test="taskTimeout != null" >
+        task_timeout = #{taskTimeout,jdbcType=INTEGER},
+      </if>
+      <if test="clientDriverPath != null" >
+        client_driver_path = #{clientDriverPath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where scheduling_id = #{schedulingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.TaskScheduling" >
+    update task_scheduling
+    set scheduling_name = #{schedulingName,jdbcType=VARCHAR},
+      job_id = #{jobId,jdbcType=INTEGER},
+      project_id = #{projectId,jdbcType=INTEGER},
+      plan_id = #{planId,jdbcType=INTEGER},
+      client_id = #{clientId,jdbcType=INTEGER},
+      email_send_condition = #{emailSendCondition,jdbcType=INTEGER},
+      email_address = #{emailAddress,jdbcType=VARCHAR},
+      building_link = #{buildingLink,jdbcType=VARCHAR},
+      remote_shell = #{remoteShell,jdbcType=VARCHAR},
+      ex_thread_count = #{exThreadCount,jdbcType=INTEGER},
+      task_type = #{taskType,jdbcType=INTEGER},
+      browser_type = #{browserType,jdbcType=INTEGER},
+      task_timeout = #{taskTimeout,jdbcType=INTEGER},
+      client_driver_path = #{clientDriverPath,jdbcType=VARCHAR}
+    where scheduling_id = #{schedulingId,jdbcType=INTEGER}
+  </update>
+</mapper>

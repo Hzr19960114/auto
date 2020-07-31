@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.QrtzSchedulerStateMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.QrtzSchedulerState" >
+    <id column="sched_name" property="schedName" jdbcType="VARCHAR" />
+    <id column="instance_name" property="instanceName" jdbcType="VARCHAR" />
+    <result column="last_checkin_time" property="lastCheckinTime" jdbcType="BIGINT" />
+    <result column="checkin_interval" property="checkinInterval" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sched_name, instance_name, last_checkin_time, checkin_interval
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.QrtzSchedulerStateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from qrtz_scheduler_state
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.accp.domain.QrtzSchedulerStateKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from qrtz_scheduler_state
+    where sched_name = #{schedName,jdbcType=VARCHAR}
+      and instance_name = #{instanceName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.accp.domain.QrtzSchedulerStateKey" >
+    delete from qrtz_scheduler_state
+    where sched_name = #{schedName,jdbcType=VARCHAR}
+      and instance_name = #{instanceName,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.QrtzSchedulerStateExample" >
+    delete from qrtz_scheduler_state
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.QrtzSchedulerState" >
+    insert into qrtz_scheduler_state (sched_name, instance_name, last_checkin_time, 
+      checkin_interval)
+    values (#{schedName,jdbcType=VARCHAR}, #{instanceName,jdbcType=VARCHAR}, #{lastCheckinTime,jdbcType=BIGINT}, 
+      #{checkinInterval,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.QrtzSchedulerState" >
+    insert into qrtz_scheduler_state
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="schedName != null" >
+        sched_name,
+      </if>
+      <if test="instanceName != null" >
+        instance_name,
+      </if>
+      <if test="lastCheckinTime != null" >
+        last_checkin_time,
+      </if>
+      <if test="checkinInterval != null" >
+        checkin_interval,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="schedName != null" >
+        #{schedName,jdbcType=VARCHAR},
+      </if>
+      <if test="instanceName != null" >
+        #{instanceName,jdbcType=VARCHAR},
+      </if>
+      <if test="lastCheckinTime != null" >
+        #{lastCheckinTime,jdbcType=BIGINT},
+      </if>
+      <if test="checkinInterval != null" >
+        #{checkinInterval,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.QrtzSchedulerStateExample" resultType="java.lang.Integer" >
+    select count(*) from qrtz_scheduler_state
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update qrtz_scheduler_state
+    <set >
+      <if test="record.schedName != null" >
+        sched_name = #{record.schedName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.instanceName != null" >
+        instance_name = #{record.instanceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastCheckinTime != null" >
+        last_checkin_time = #{record.lastCheckinTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.checkinInterval != null" >
+        checkin_interval = #{record.checkinInterval,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update qrtz_scheduler_state
+    set sched_name = #{record.schedName,jdbcType=VARCHAR},
+      instance_name = #{record.instanceName,jdbcType=VARCHAR},
+      last_checkin_time = #{record.lastCheckinTime,jdbcType=BIGINT},
+      checkin_interval = #{record.checkinInterval,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.QrtzSchedulerState" >
+    update qrtz_scheduler_state
+    <set >
+      <if test="lastCheckinTime != null" >
+        last_checkin_time = #{lastCheckinTime,jdbcType=BIGINT},
+      </if>
+      <if test="checkinInterval != null" >
+        checkin_interval = #{checkinInterval,jdbcType=BIGINT},
+      </if>
+    </set>
+    where sched_name = #{schedName,jdbcType=VARCHAR}
+      and instance_name = #{instanceName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.QrtzSchedulerState" >
+    update qrtz_scheduler_state
+    set last_checkin_time = #{lastCheckinTime,jdbcType=BIGINT},
+      checkin_interval = #{checkinInterval,jdbcType=BIGINT}
+    where sched_name = #{schedName,jdbcType=VARCHAR}
+      and instance_name = #{instanceName,jdbcType=VARCHAR}
+  </update>
+</mapper>

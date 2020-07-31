@@ -1,6 +1,8 @@
 package com.accp.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class SysDept {
     private Integer deptId;
@@ -30,8 +32,20 @@ public class SysDept {
     private String updateBy;
 
     private Date updateTime;
+    
+    private List<SysDept> Children = new ArrayList<SysDept>();
+    
+    
 
-    public Integer getDeptId() {
+    public List<SysDept> getChildren() {
+		return Children;
+	}
+
+	public void setChildren(List<SysDept> children) {
+		Children = children;
+	}
+
+	public Integer getDeptId() {
         return deptId;
     }
 

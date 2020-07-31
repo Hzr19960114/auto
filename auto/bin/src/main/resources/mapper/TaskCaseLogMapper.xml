@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.TaskCaseLogMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.TaskCaseLog" >
+    <id column="log_id" property="logId" jdbcType="INTEGER" />
+    <result column="task_case_id" property="taskCaseId" jdbcType="INTEGER" />
+    <result column="task_id" property="taskId" jdbcType="INTEGER" />
+    <result column="log_detail" property="logDetail" jdbcType="VARCHAR" />
+    <result column="log_grade" property="logGrade" jdbcType="VARCHAR" />
+    <result column="log_step" property="logStep" jdbcType="VARCHAR" />
+    <result column="imgname" property="imgname" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    log_id, task_case_id, task_id, log_detail, log_grade, log_step, imgname, create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.TaskCaseLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from task_case_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from task_case_log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from task_case_log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.TaskCaseLogExample" >
+    delete from task_case_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.TaskCaseLog" >
+    insert into task_case_log (log_id, task_case_id, task_id, 
+      log_detail, log_grade, log_step, 
+      imgname, create_time)
+    values (#{logId,jdbcType=INTEGER}, #{taskCaseId,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}, 
+      #{logDetail,jdbcType=VARCHAR}, #{logGrade,jdbcType=VARCHAR}, #{logStep,jdbcType=VARCHAR}, 
+      #{imgname,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.TaskCaseLog" >
+    insert into task_case_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        log_id,
+      </if>
+      <if test="taskCaseId != null" >
+        task_case_id,
+      </if>
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="logDetail != null" >
+        log_detail,
+      </if>
+      <if test="logGrade != null" >
+        log_grade,
+      </if>
+      <if test="logStep != null" >
+        log_step,
+      </if>
+      <if test="imgname != null" >
+        imgname,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=INTEGER},
+      </if>
+      <if test="taskCaseId != null" >
+        #{taskCaseId,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null" >
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="logDetail != null" >
+        #{logDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="logGrade != null" >
+        #{logGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="logStep != null" >
+        #{logStep,jdbcType=VARCHAR},
+      </if>
+      <if test="imgname != null" >
+        #{imgname,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.TaskCaseLogExample" resultType="java.lang.Integer" >
+    select count(*) from task_case_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update task_case_log
+    <set >
+      <if test="record.logId != null" >
+        log_id = #{record.logId,jdbcType=INTEGER},
+      </if>
+      <if test="record.taskCaseId != null" >
+        task_case_id = #{record.taskCaseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.taskId != null" >
+        task_id = #{record.taskId,jdbcType=INTEGER},
+      </if>
+      <if test="record.logDetail != null" >
+        log_detail = #{record.logDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logGrade != null" >
+        log_grade = #{record.logGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logStep != null" >
+        log_step = #{record.logStep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgname != null" >
+        imgname = #{record.imgname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update task_case_log
+    set log_id = #{record.logId,jdbcType=INTEGER},
+      task_case_id = #{record.taskCaseId,jdbcType=INTEGER},
+      task_id = #{record.taskId,jdbcType=INTEGER},
+      log_detail = #{record.logDetail,jdbcType=VARCHAR},
+      log_grade = #{record.logGrade,jdbcType=VARCHAR},
+      log_step = #{record.logStep,jdbcType=VARCHAR},
+      imgname = #{record.imgname,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.TaskCaseLog" >
+    update task_case_log
+    <set >
+      <if test="taskCaseId != null" >
+        task_case_id = #{taskCaseId,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null" >
+        task_id = #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="logDetail != null" >
+        log_detail = #{logDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="logGrade != null" >
+        log_grade = #{logGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="logStep != null" >
+        log_step = #{logStep,jdbcType=VARCHAR},
+      </if>
+      <if test="imgname != null" >
+        imgname = #{imgname,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.TaskCaseLog" >
+    update task_case_log
+    set task_case_id = #{taskCaseId,jdbcType=INTEGER},
+      task_id = #{taskId,jdbcType=INTEGER},
+      log_detail = #{logDetail,jdbcType=VARCHAR},
+      log_grade = #{logGrade,jdbcType=VARCHAR},
+      log_step = #{logStep,jdbcType=VARCHAR},
+      imgname = #{imgname,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+</mapper>

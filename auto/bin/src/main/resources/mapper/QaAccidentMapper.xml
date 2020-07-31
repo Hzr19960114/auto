@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.QaAccidentMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.QaAccident" >
+    <id column="accident_id" property="accidentId" jdbcType="INTEGER" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="accident_status" property="accidentStatus" jdbcType="VARCHAR" />
+    <result column="accident_time" property="accidentTime" jdbcType="VARCHAR" />
+    <result column="report_time" property="reportTime" jdbcType="VARCHAR" />
+    <result column="accident_description" property="accidentDescription" jdbcType="VARCHAR" />
+    <result column="accident_level" property="accidentLevel" jdbcType="VARCHAR" />
+    <result column="accident_analysis" property="accidentAnalysis" jdbcType="VARCHAR" />
+    <result column="accident_type" property="accidentType" jdbcType="VARCHAR" />
+    <result column="accident_consequence" property="accidentConsequence" jdbcType="VARCHAR" />
+    <result column="corrective_action" property="correctiveAction" jdbcType="VARCHAR" />
+    <result column="resolution_time" property="resolutionTime" jdbcType="VARCHAR" />
+    <result column="resolutioner" property="resolutioner" jdbcType="VARCHAR" />
+    <result column="preventive_action" property="preventiveAction" jdbcType="VARCHAR" />
+    <result column="preventiver" property="preventiver" jdbcType="VARCHAR" />
+    <result column="preventive_plan_date" property="preventivePlanDate" jdbcType="VARCHAR" />
+    <result column="preventive_over_date" property="preventiveOverDate" jdbcType="VARCHAR" />
+    <result column="duration_time" property="durationTime" jdbcType="INTEGER" />
+    <result column="impact_time" property="impactTime" jdbcType="INTEGER" />
+    <result column="accident_file_name" property="accidentFileName" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    accident_id, project_id, accident_status, accident_time, report_time, accident_description, 
+    accident_level, accident_analysis, accident_type, accident_consequence, corrective_action, 
+    resolution_time, resolutioner, preventive_action, preventiver, preventive_plan_date, 
+    preventive_over_date, duration_time, impact_time, accident_file_name, create_by, 
+    create_time, update_by, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.QaAccidentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from qa_accident
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from qa_accident
+    where accident_id = #{accidentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from qa_accident
+    where accident_id = #{accidentId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.QaAccidentExample" >
+    delete from qa_accident
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.QaAccident" >
+    insert into qa_accident (accident_id, project_id, accident_status, 
+      accident_time, report_time, accident_description, 
+      accident_level, accident_analysis, accident_type, 
+      accident_consequence, corrective_action, 
+      resolution_time, resolutioner, preventive_action, 
+      preventiver, preventive_plan_date, preventive_over_date, 
+      duration_time, impact_time, accident_file_name, 
+      create_by, create_time, update_by, 
+      update_time)
+    values (#{accidentId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{accidentStatus,jdbcType=VARCHAR}, 
+      #{accidentTime,jdbcType=VARCHAR}, #{reportTime,jdbcType=VARCHAR}, #{accidentDescription,jdbcType=VARCHAR}, 
+      #{accidentLevel,jdbcType=VARCHAR}, #{accidentAnalysis,jdbcType=VARCHAR}, #{accidentType,jdbcType=VARCHAR}, 
+      #{accidentConsequence,jdbcType=VARCHAR}, #{correctiveAction,jdbcType=VARCHAR}, 
+      #{resolutionTime,jdbcType=VARCHAR}, #{resolutioner,jdbcType=VARCHAR}, #{preventiveAction,jdbcType=VARCHAR}, 
+      #{preventiver,jdbcType=VARCHAR}, #{preventivePlanDate,jdbcType=VARCHAR}, #{preventiveOverDate,jdbcType=VARCHAR}, 
+      #{durationTime,jdbcType=INTEGER}, #{impactTime,jdbcType=INTEGER}, #{accidentFileName,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.QaAccident" >
+    insert into qa_accident
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accidentId != null" >
+        accident_id,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="accidentStatus != null" >
+        accident_status,
+      </if>
+      <if test="accidentTime != null" >
+        accident_time,
+      </if>
+      <if test="reportTime != null" >
+        report_time,
+      </if>
+      <if test="accidentDescription != null" >
+        accident_description,
+      </if>
+      <if test="accidentLevel != null" >
+        accident_level,
+      </if>
+      <if test="accidentAnalysis != null" >
+        accident_analysis,
+      </if>
+      <if test="accidentType != null" >
+        accident_type,
+      </if>
+      <if test="accidentConsequence != null" >
+        accident_consequence,
+      </if>
+      <if test="correctiveAction != null" >
+        corrective_action,
+      </if>
+      <if test="resolutionTime != null" >
+        resolution_time,
+      </if>
+      <if test="resolutioner != null" >
+        resolutioner,
+      </if>
+      <if test="preventiveAction != null" >
+        preventive_action,
+      </if>
+      <if test="preventiver != null" >
+        preventiver,
+      </if>
+      <if test="preventivePlanDate != null" >
+        preventive_plan_date,
+      </if>
+      <if test="preventiveOverDate != null" >
+        preventive_over_date,
+      </if>
+      <if test="durationTime != null" >
+        duration_time,
+      </if>
+      <if test="impactTime != null" >
+        impact_time,
+      </if>
+      <if test="accidentFileName != null" >
+        accident_file_name,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accidentId != null" >
+        #{accidentId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="accidentStatus != null" >
+        #{accidentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="accidentTime != null" >
+        #{accidentTime,jdbcType=VARCHAR},
+      </if>
+      <if test="reportTime != null" >
+        #{reportTime,jdbcType=VARCHAR},
+      </if>
+      <if test="accidentDescription != null" >
+        #{accidentDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="accidentLevel != null" >
+        #{accidentLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="accidentAnalysis != null" >
+        #{accidentAnalysis,jdbcType=VARCHAR},
+      </if>
+      <if test="accidentType != null" >
+        #{accidentType,jdbcType=VARCHAR},
+      </if>
+      <if test="accidentConsequence != null" >
+        #{accidentConsequence,jdbcType=VARCHAR},
+      </if>
+      <if test="correctiveAction != null" >
+        #{correctiveAction,jdbcType=VARCHAR},
+      </if>
+      <if test="resolutionTime != null" >
+        #{resolutionTime,jdbcType=VARCHAR},
+      </if>
+      <if test="resolutioner != null" >
+        #{resolutioner,jdbcType=VARCHAR},
+      </if>
+      <if test="preventiveAction != null" >
+        #{preventiveAction,jdbcType=VARCHAR},
+      </if>
+      <if test="preventiver != null" >
+        #{preventiver,jdbcType=VARCHAR},
+      </if>
+      <if test="preventivePlanDate != null" >
+        #{preventivePlanDate,jdbcType=VARCHAR},
+      </if>
+      <if test="preventiveOverDate != null" >
+        #{preventiveOverDate,jdbcType=VARCHAR},
+      </if>
+      <if test="durationTime != null" >
+        #{durationTime,jdbcType=INTEGER},
+      </if>
+      <if test="impactTime != null" >
+        #{impactTime,jdbcType=INTEGER},
+      </if>
+      <if test="accidentFileName != null" >
+        #{accidentFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.QaAccidentExample" resultType="java.lang.Integer" >
+    select count(*) from qa_accident
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update qa_accident
+    <set >
+      <if test="record.accidentId != null" >
+        accident_id = #{record.accidentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectId != null" >
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.accidentStatus != null" >
+        accident_status = #{record.accidentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accidentTime != null" >
+        accident_time = #{record.accidentTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reportTime != null" >
+        report_time = #{record.reportTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accidentDescription != null" >
+        accident_description = #{record.accidentDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accidentLevel != null" >
+        accident_level = #{record.accidentLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accidentAnalysis != null" >
+        accident_analysis = #{record.accidentAnalysis,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accidentType != null" >
+        accident_type = #{record.accidentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accidentConsequence != null" >
+        accident_consequence = #{record.accidentConsequence,jdbcType=VARCHAR},
+      </if>
+      <if test="record.correctiveAction != null" >
+        corrective_action = #{record.correctiveAction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resolutionTime != null" >
+        resolution_time = #{record.resolutionTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resolutioner != null" >
+        resolutioner = #{record.resolutioner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.preventiveAction != null" >
+        preventive_action = #{record.preventiveAction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.preventiver != null" >
+        preventiver = #{record.preventiver,jdbcType=VARCHAR},
+      </if>
+      <if test="record.preventivePlanDate != null" >
+        preventive_plan_date = #{record.preventivePlanDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.preventiveOverDate != null" >
+        preventive_over_date = #{record.preventiveOverDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.durationTime != null" >
+        duration_time = #{record.durationTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.impactTime != null" >
+        impact_time = #{record.impactTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.accidentFileName != null" >
+        accident_file_name = #{record.accidentFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null" >
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null" >
+        update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update qa_accident
+    set accident_id = #{record.accidentId,jdbcType=INTEGER},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      accident_status = #{record.accidentStatus,jdbcType=VARCHAR},
+      accident_time = #{record.accidentTime,jdbcType=VARCHAR},
+      report_time = #{record.reportTime,jdbcType=VARCHAR},
+      accident_description = #{record.accidentDescription,jdbcType=VARCHAR},
+      accident_level = #{record.accidentLevel,jdbcType=VARCHAR},
+      accident_analysis = #{record.accidentAnalysis,jdbcType=VARCHAR},
+      accident_type = #{record.accidentType,jdbcType=VARCHAR},
+      accident_consequence = #{record.accidentConsequence,jdbcType=VARCHAR},
+      corrective_action = #{record.correctiveAction,jdbcType=VARCHAR},
+      resolution_time = #{record.resolutionTime,jdbcType=VARCHAR},
+      resolutioner = #{record.resolutioner,jdbcType=VARCHAR},
+      preventive_action = #{record.preventiveAction,jdbcType=VARCHAR},
+      preventiver = #{record.preventiver,jdbcType=VARCHAR},
+      preventive_plan_date = #{record.preventivePlanDate,jdbcType=VARCHAR},
+      preventive_over_date = #{record.preventiveOverDate,jdbcType=VARCHAR},
+      duration_time = #{record.durationTime,jdbcType=INTEGER},
+      impact_time = #{record.impactTime,jdbcType=INTEGER},
+      accident_file_name = #{record.accidentFileName,jdbcType=VARCHAR},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.QaAccident" >
+    update qa_accident
+    <set >
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="accidentStatus != null" >
+        accident_status = #{accidentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="accidentTime != null" >
+        accident_time = #{accidentTime,jdbcType=VARCHAR},
+      </if>
+      <if test="reportTime != null" >
+        report_time = #{reportTime,jdbcType=VARCHAR},
+      </if>
+      <if test="accidentDescription != null" >
+        accident_description = #{accidentDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="accidentLevel != null" >
+        accident_level = #{accidentLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="accidentAnalysis != null" >
+        accident_analysis = #{accidentAnalysis,jdbcType=VARCHAR},
+      </if>
+      <if test="accidentType != null" >
+        accident_type = #{accidentType,jdbcType=VARCHAR},
+      </if>
+      <if test="accidentConsequence != null" >
+        accident_consequence = #{accidentConsequence,jdbcType=VARCHAR},
+      </if>
+      <if test="correctiveAction != null" >
+        corrective_action = #{correctiveAction,jdbcType=VARCHAR},
+      </if>
+      <if test="resolutionTime != null" >
+        resolution_time = #{resolutionTime,jdbcType=VARCHAR},
+      </if>
+      <if test="resolutioner != null" >
+        resolutioner = #{resolutioner,jdbcType=VARCHAR},
+      </if>
+      <if test="preventiveAction != null" >
+        preventive_action = #{preventiveAction,jdbcType=VARCHAR},
+      </if>
+      <if test="preventiver != null" >
+        preventiver = #{preventiver,jdbcType=VARCHAR},
+      </if>
+      <if test="preventivePlanDate != null" >
+        preventive_plan_date = #{preventivePlanDate,jdbcType=VARCHAR},
+      </if>
+      <if test="preventiveOverDate != null" >
+        preventive_over_date = #{preventiveOverDate,jdbcType=VARCHAR},
+      </if>
+      <if test="durationTime != null" >
+        duration_time = #{durationTime,jdbcType=INTEGER},
+      </if>
+      <if test="impactTime != null" >
+        impact_time = #{impactTime,jdbcType=INTEGER},
+      </if>
+      <if test="accidentFileName != null" >
+        accident_file_name = #{accidentFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where accident_id = #{accidentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.QaAccident" >
+    update qa_accident
+    set project_id = #{projectId,jdbcType=INTEGER},
+      accident_status = #{accidentStatus,jdbcType=VARCHAR},
+      accident_time = #{accidentTime,jdbcType=VARCHAR},
+      report_time = #{reportTime,jdbcType=VARCHAR},
+      accident_description = #{accidentDescription,jdbcType=VARCHAR},
+      accident_level = #{accidentLevel,jdbcType=VARCHAR},
+      accident_analysis = #{accidentAnalysis,jdbcType=VARCHAR},
+      accident_type = #{accidentType,jdbcType=VARCHAR},
+      accident_consequence = #{accidentConsequence,jdbcType=VARCHAR},
+      corrective_action = #{correctiveAction,jdbcType=VARCHAR},
+      resolution_time = #{resolutionTime,jdbcType=VARCHAR},
+      resolutioner = #{resolutioner,jdbcType=VARCHAR},
+      preventive_action = #{preventiveAction,jdbcType=VARCHAR},
+      preventiver = #{preventiver,jdbcType=VARCHAR},
+      preventive_plan_date = #{preventivePlanDate,jdbcType=VARCHAR},
+      preventive_over_date = #{preventiveOverDate,jdbcType=VARCHAR},
+      duration_time = #{durationTime,jdbcType=INTEGER},
+      impact_time = #{impactTime,jdbcType=INTEGER},
+      accident_file_name = #{accidentFileName,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where accident_id = #{accidentId,jdbcType=INTEGER}
+  </update>
+</mapper>
