@@ -56,5 +56,5 @@ public class SysConfigService {
 	public int update(SysConfig sysConfig) {
 		return mapper.updateByPrimaryKey(sysConfig);
 	}
-	
+
 }

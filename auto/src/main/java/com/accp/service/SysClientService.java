@@ -58,4 +58,5 @@ public class SysClientService {
 	public int update(SysClient sc) {
 		return mapper.updateByPrimaryKey(sc);
 	}
+
 }

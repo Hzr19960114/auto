@@ -89,4 +89,5 @@ public class SysLogininforService {
 		}
 		return mapper.selectByExample(example);
 	}
+
 }

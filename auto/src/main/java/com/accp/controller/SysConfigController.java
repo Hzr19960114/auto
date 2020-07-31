@@ -27,4 +27,5 @@ public class SysConfigController {
 	public int update(SysConfig sysConfig) {
 		return service.update(sysConfig);
 	}
+
 }
