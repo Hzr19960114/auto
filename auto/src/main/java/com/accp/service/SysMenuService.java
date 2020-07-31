@@ -19,8 +19,6 @@ public class SysMenuService {
 	SysMenuMapper mapper;
 	
 	public List<SysMenu> findById(Integer parentId,String menuName,Integer visible) {
-		System.out.println(menuName+"q1");
-		System.out.println(visible+"w2");
 		SysMenuExample example =new SysMenuExample();
 		Criteria criteria=example.createCriteria();
 		if(menuName!=null || visible !=null) {
