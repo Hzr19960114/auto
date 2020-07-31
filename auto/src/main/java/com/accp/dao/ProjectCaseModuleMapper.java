@@ -19,6 +19,8 @@ public interface ProjectCaseModuleMapper {
     List<ProjectCaseModule> selectByExample(ProjectCaseModuleExample example);
 
     ProjectCaseModule selectByPrimaryKey(Integer moduleId);
+    
+    List<ProjectCaseModule> find(Integer parentid);
 
     int updateByExampleSelective(@Param("record") ProjectCaseModule record, @Param("example") ProjectCaseModuleExample example);
 
