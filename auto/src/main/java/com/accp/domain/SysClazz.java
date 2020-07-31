@@ -1,6 +1,8 @@
 package com.accp.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class SysClazz {
     private Integer clazzId;
@@ -31,7 +33,18 @@ public class SysClazz {
 
     private Date updateTime;
 
-    public Integer getClazzId() {
+    private List<SysClazz> children=new ArrayList<SysClazz>();
+    
+    
+    public List<SysClazz> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<SysClazz> children) {
+		this.children = children;
+	}
+
+	public Integer getClazzId() {
         return clazzId;
     }
 

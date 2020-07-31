@@ -1,6 +1,12 @@
 package com.accp.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class ProjectCaseModule {
     private Integer moduleId;
@@ -17,13 +23,37 @@ public class ProjectCaseModule {
 
     private String createBy;
 
+
+    @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")
     private Date createTime;
 
     private String updateBy;
 
+    @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
     private Date updateTime;
 
-    private String remark;
+    public List<ProjectCaseModule> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<ProjectCaseModule> children) {
+		this.children = children;
+	}
+	
+	private String projectName;
+
+	private String remark;
+    
+    public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	private List<ProjectCaseModule> children=new ArrayList<ProjectCaseModule>();
 
     public Integer getModuleId() {
         return moduleId;

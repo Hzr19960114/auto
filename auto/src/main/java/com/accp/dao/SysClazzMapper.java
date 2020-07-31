@@ -19,6 +19,10 @@ public interface SysClazzMapper {
     List<SysClazz> selectByExample(SysClazzExample example);
 
     SysClazz selectByPrimaryKey(Integer clazzId);
+    
+    List<SysClazz> find(Integer parentid);
+    
+    List<SysClazz> clazzFind(List<Integer> list);
 
     int updateByExampleSelective(@Param("record") SysClazz record, @Param("example") SysClazzExample example);
 

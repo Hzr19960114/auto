@@ -2,6 +2,8 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class SysJob extends SysJobKey {
     private String methodName;
 
@@ -19,6 +21,7 @@ public class SysJob extends SysJobKey {
 
     private String updateBy;
 
+    @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
     private Date updateTime;
 
     private String remark;

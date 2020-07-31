@@ -17,6 +17,22 @@
     <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
+  
+  <resultMap id="BaseResultMapExtends" type="com.accp.domain.SysClazz" extends="BaseResultMap">
+    	<collection property="children" column="clazz_id" select="find"></collection>
+    </resultMap>
+  
+   <select id="find" resultMap="BaseResultMapExtends" >
+   		select * from sys_clazz where parent_id=#{parentid}
+   </select>
+   
+	<select  id="clazzFind" resultMap="BaseResultMapExtends" parameterType="java.util.List">
+		SELECT * FROM `sys_clazz` WHERE parent_id NOT IN 
+		<foreach collection="list" open="(" separator="," close=")" item="item">
+			#{item}
+		</foreach>
+	</select>
+   
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
