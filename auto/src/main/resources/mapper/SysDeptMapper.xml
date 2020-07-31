@@ -23,7 +23,14 @@
   </resultMap>
   
   <select id="find" resultMap="BaseResultMapExtends" parameterType="java.lang.Integer">
-  		SELECT * FROM sys_dept WHERE parent_id=#{parentId} 
+  		SELECT * FROM sys_dept WHERE parent_id=#{parentId}
+  </select> 
+  <resultMap type="com.accp.domain.SysDept" id="BaseResultMapex" extends="BaseResultMap">
+  	<collection property="children" column="dept_id" select="selectByParent_id"></collection>
+  </resultMap>
+  
+  <select id="selectByParent_id" resultMap="BaseResultMapex" >
+  	select * from sys_dept where parent_id=#{parent_id } 
   </select>
   <sql id="Example_Where_Clause" >
     <where >
