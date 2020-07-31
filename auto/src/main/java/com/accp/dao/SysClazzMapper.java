@@ -27,4 +27,6 @@ public interface SysClazzMapper {
     int updateByPrimaryKeySelective(SysClazz record);
 
     int updateByPrimaryKey(SysClazz record);
+    
+    List<SysClazz> selectByParent_id(Integer parent_id);
 }

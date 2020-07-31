@@ -1,6 +1,12 @@
 package com.accp.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class SysClazz {
     private Integer clazzId;
@@ -25,13 +31,27 @@ public class SysClazz {
 
     private String createBy;
 
+    @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")
     private Date createTime;
 
     private String updateBy;
 
+    @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")
     private Date updateTime;
+    
+    List<SysClazz> children=new ArrayList<SysClazz>();
 
-    public Integer getClazzId() {
+    public List<SysClazz> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<SysClazz> children) {
+		this.children = children;
+	}
+
+	public Integer getClazzId() {
         return clazzId;
     }
 

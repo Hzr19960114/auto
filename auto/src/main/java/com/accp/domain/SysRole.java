@@ -1,6 +1,11 @@
 package com.accp.domain;
 
 import java.util.Date;
+import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class SysRole {
     private Integer roleId;
@@ -16,18 +21,63 @@ public class SysRole {
     private String status;
 
     private String delFlag;
+    
+    private int [] ids;
 
     private String createBy;
+    public int[] getIds() {
+		return ids;
+	}
 
+	public void setIds(int[] ids) {
+		this.ids = ids;
+	}
+
+	@JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createTime;
 
     private String updateBy;
-
+    @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updateTime;
 
     private String remark;
 
-    public Integer getRoleId() {
+    //部门
+    private List<SysDept> dept;
+    //菜单
+    private List<SysMenu> menu;
+    //项目
+    private List<SysProject> pro;
+    
+    
+
+	public List<SysDept> getDept() {
+		return dept;
+	}
+
+	public void setDept(List<SysDept> dept) {
+		this.dept = dept;
+	}
+
+	public List<SysMenu> getMenu() {
+		return menu;
+	}
+
+	public void setMenu(List<SysMenu> menu) {
+		this.menu = menu;
+	}
+
+	public List<SysProject> getPro() {
+		return pro;
+	}
+
+	public void setPro(List<SysProject> pro) {
+		this.pro = pro;
+	}
+
+	public Integer getRoleId() {
         return roleId;
     }
 

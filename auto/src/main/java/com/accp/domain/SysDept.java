@@ -1,6 +1,12 @@
 package com.accp.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class SysDept {
     private Integer deptId;
@@ -24,14 +30,38 @@ public class SysDept {
     private String delFlag;
 
     private String createBy;
-
+    @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")
     private Date createTime;
 
     private String updateBy;
-
+    @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")
     private Date updateTime;
+    
+    private List<SysDept> children=new ArrayList<SysDept>();
+    
+    private String title;
+    
+    
+    
+	public String getTitle() {
+		return title;
+	}
 
-    public Integer getDeptId() {
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public List<SysDept> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<SysDept> children) {
+		this.children = children;
+	}
+
+	public Integer getDeptId() {
         return deptId;
     }
 

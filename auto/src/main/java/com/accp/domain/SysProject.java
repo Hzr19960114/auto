@@ -8,8 +8,20 @@ public class SysProject {
     private Integer deptId;
 
     private String projectSign;
+    
+    private String deptName;
+    
+    
 
-    public Integer getProjectId() {
+    public String getDeptName() {
+		return deptName;
+	}
+
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+
+	public Integer getProjectId() {
         return projectId;
     }
 

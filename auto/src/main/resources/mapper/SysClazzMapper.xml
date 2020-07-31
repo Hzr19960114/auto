@@ -17,6 +17,13 @@
     <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
+  <resultMap type="com.accp.domain.SysClazz" id="BaseResultMapex" extends="BaseResultMap">
+  	<collection property="children" column="clazz_id" select="selectByParent_id"></collection>
+  </resultMap>
+  
+  <select id="selectByParent_id" resultMap="BaseResultMapex" >
+  	select * from sys_clazz where parent_id=#{parent_id } 
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
